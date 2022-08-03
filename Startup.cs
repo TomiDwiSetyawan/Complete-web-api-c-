@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,14 +12,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TestApi.Data;
+using TestApi.Data.Services;
 
 namespace TestApi
 {
     public class Startup
     {
+        public string ConnetionString { get; set; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            ConnetionString = Configuration.GetConnectionString("DefaultConnectionString");
         }
 
         public IConfiguration Configuration { get; }
@@ -28,10 +33,18 @@ namespace TestApi
         {
 
             services.AddControllers();
+
+            //Configure DBContext with SQL
+            services.AddDbContext<AppDbContext>(option => option.UseSqlServer(ConnetionString));
+
+            //configure the services
+            services.AddTransient<BooksServices>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TestApi", Version = "v1" });
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +67,8 @@ namespace TestApi
             {
                 endpoints.MapControllers();
             });
+
+            AppDbInitialzer.Seed(app);
         }
     }
 }
