@@ -15,7 +15,7 @@ namespace TestApi.Data.Services
             _context = context;
         }
 
-        public void AddBook(BookVM book)
+        public void AddBookwithAuthors(BookVM book)
         {
             var _book = new Book()
             {
@@ -23,18 +23,45 @@ namespace TestApi.Data.Services
                 Description = book.Description,
                 isRead = book.isRead,
                 DateRead = book.isRead ? book.DateRead.Value : null,
-                Author = book.Author,
                 CoverUrl = book.CoverUrl,
                 Rate = book.Rate,
-                DateAdded = DateTime.Now
+                DateAdded = DateTime.Now,
+                PublisherId = book.PublisherId
             };
             _context.Books.Add(_book);
             _context.SaveChanges();
+
+            foreach (var id in book.AuthorIds)
+            {
+                var _book_author = new Book_Author()
+                {
+                    BookId = _book.Id,
+                    AuthorId = id
+                };
+                 _context.Book_Authors.Add(_book_author);
+                _context.SaveChanges();
+            } 
         }
 
         public List<Book> GetAllBooks() => _context.Books.ToList();
 
-        public Book GetBookById(int bookId) => _context.Books.FirstOrDefault(n => n.Id == bookId);
+        public BookWithAuthorsVM GetBookById(int bookId)
+        {
+            var _bookWithAuthors = _context.Books.Where(n => n.Id == bookId).Select(book => new BookWithAuthorsVM()
+            {
+                Title = book.Title,
+                Description = book.Description,
+                isRead = book.isRead,
+                DateRead = book.isRead ? book.DateRead.Value : null,
+                CoverUrl = book.CoverUrl,
+                Rate = book.Rate,
+                PublisherName = book.Publisher.Name,
+                AuthorNames = book.Book_Authors.Select(n => n.Author.FullName).ToList()
+                
+            }).FirstOrDefault();
+
+            return _bookWithAuthors;
+        } 
 
         public Book UpdateBookId(int bookId, BookVM book)
         {
@@ -46,7 +73,6 @@ namespace TestApi.Data.Services
                 _book.Description = book.Description;
                 _book.isRead = book.isRead;
                 _book.DateRead = book.isRead ? book.DateRead.Value : null;
-                _book.Author = book.Author;
                 _book.Rate = book.Rate;
                 _book.CoverUrl = book.CoverUrl;
 

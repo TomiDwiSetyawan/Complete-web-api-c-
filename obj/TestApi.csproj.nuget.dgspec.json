@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Belajar VS\\TestApi\\TestApi.csproj": {}
+    "D:\\Belajar VS\\Bug\\Complete-web-api-c-\\TestApi.csproj": {}
   },
   "projects": {
-    "D:\\Belajar VS\\TestApi\\TestApi.csproj": {
+    "D:\\Belajar VS\\Bug\\Complete-web-api-c-\\TestApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Belajar VS\\TestApi\\TestApi.csproj",
+        "projectUniqueName": "D:\\Belajar VS\\Bug\\Complete-web-api-c-\\TestApi.csproj",
         "projectName": "TestApi",
-        "projectPath": "D:\\Belajar VS\\TestApi\\TestApi.csproj",
+        "projectPath": "D:\\Belajar VS\\Bug\\Complete-web-api-c-\\TestApi.csproj",
         "packagesPath": "C:\\Users\\outsr.tomi\\.nuget\\packages\\",
-        "outputPath": "D:\\Belajar VS\\TestApi\\obj\\",
+        "outputPath": "D:\\Belajar VS\\Bug\\Complete-web-api-c-\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\outsr.tomi\\AppData\\Roaming\\NuGet\\NuGet.Config",

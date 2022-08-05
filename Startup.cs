@@ -39,6 +39,8 @@ namespace TestApi
 
             //configure the services
             services.AddTransient<BooksServices>();
+            services.AddTransient<AuthorsService>();
+            services.AddTransient<PublishersService>();
 
             services.AddSwaggerGen(c =>
             {
@@ -68,7 +70,7 @@ namespace TestApi
                 endpoints.MapControllers();
             });
 
-            AppDbInitialzer.Seed(app);
+            //AppDbInitialzer.Seed(app);
         }
     }
 }

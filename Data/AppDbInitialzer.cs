@@ -25,7 +25,6 @@ namespace TestApi.Data
                         isRead = true,
                         DateRead = DateTime.Now.AddDays(-10),
                         Rate = 4,
-                        Author = "First Author",
                         CoverUrl = "https....",
                         DateAdded = DateTime.Now
                     },
@@ -36,7 +35,6 @@ namespace TestApi.Data
                         isRead = true,
                         DateRead = DateTime.Now.AddDays(-10),
                         Rate = 4,
-                        Author = "First Author",
                         CoverUrl = "https....",
                         DateAdded = DateTime.Now
                     });
